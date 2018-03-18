@@ -33,7 +33,7 @@ namespace ConsoleApplication1
                 }
             }
 
-            Console.WriteLine("Demo end.");
+            Console.WriteLine("Demo complete.");
             Console.ReadLine();
         }
     }
