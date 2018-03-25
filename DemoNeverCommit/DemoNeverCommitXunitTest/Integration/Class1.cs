@@ -2,8 +2,7 @@
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
-using ContosoUniversity.DAL;
-using ContosoUniversity.Models;
+using DataAccess.Models;
 using Infrastructure;
 using Rhino.Mocks;
 using Xunit;
@@ -31,17 +30,16 @@ namespace DemoNeverCommitXunitTest.Integration
                     {
 
                         //ARRANGE
-                        Department d = new Department();
-                        d.Name = "gastone";
-                        d.StartDate = DateTime.Now;
+                        Student s = new Student();
+                        s.StudentName = "BillTest";
                         var res = _sendEmailStub.Stub(se => se.Send("", "", "")).IgnoreArguments().Return(true);
 
                         //ACT
-                        ctx.Departments.Add(d);
+                        ctx.Students.Add(s);
                         ctx.SaveChanges();
                         
                         //ASSERT
-                        var inserted = ctx.Departments.SingleOrDefault(x => x.DepartmentID == d.DepartmentID);
+                        var inserted = ctx.Students.SingleOrDefault(x => x.StudentID == s.StudentID);
                         Assert.NotNull(inserted);
 
                     }
@@ -62,19 +60,18 @@ namespace DemoNeverCommitXunitTest.Integration
                 {
                     try
                     {
-                       
+
                         //ARRANGE
-                        Department d = new Department();
-                        d.Name = "gastone";
-                        d.StartDate = DateTime.Now;
+                        Student s = new Student();
+                        s.StudentName = "BillTest";
                         var res = _sendEmailStub.Stub(se => se.Send("", "", "")).IgnoreArguments().Return(true);
 
                         //ACT
-                        ctx.Departments.Add(d);
+                        ctx.Students.Add(s);
                         ctx.SaveChanges();
 
                         //ASSERT
-                        var inserted = ctx.Departments.SingleOrDefault(x => x.DepartmentID == d.DepartmentID);
+                        var inserted = ctx.Students.SingleOrDefault(x => x.StudentID == s.StudentID);
                         Assert.NotNull(inserted);
 
                     }

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ContosoUniversity.DAL;
-using ContosoUniversity.Models;
+using DataAccess.Models;
 
 namespace ConsoleApplication1
 {
@@ -18,10 +17,9 @@ namespace ConsoleApplication1
                 {
                     try
                     {
-                        Department d = new Department();
-                        d.Name = "gastone";
-                        d.StartDate = DateTime.Now;
-                        ctx.Departments.Add(d);
+                        var student = new Student() { StudentName = "Bill" };
+
+                        ctx.Students.Add(student);
                         ctx.SaveChanges();
                         dbContextTransaction.Commit();
                     }
@@ -32,7 +30,6 @@ namespace ConsoleApplication1
                     }
                 }
             }
-
             Console.WriteLine("Demo complete.");
             Console.ReadLine();
         }
