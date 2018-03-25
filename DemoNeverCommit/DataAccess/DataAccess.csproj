@@ -50,29 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mapping\GradeMap.cs" />
-    <Compile Include="Migrations\201803252139039_PFASchoolDB-v1.cs" />
-    <Compile Include="Migrations\201803252139039_PFASchoolDB-v1.Designer.cs">
-      <DependentUpon>201803252139039_PFASchoolDB-v1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803252156290_changestudentTable.cs" />
-    <Compile Include="Migrations\201803252156290_changestudentTable.Designer.cs">
-      <DependentUpon>201803252156290_changestudentTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803252204239_changestudentTable1.cs" />
-    <Compile Include="Migrations\201803252204239_changestudentTable1.Designer.cs">
-      <DependentUpon>201803252204239_changestudentTable1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803252235422_changestudentTable2.cs" />
-    <Compile Include="Migrations\201803252235422_changestudentTable2.Designer.cs">
-      <DependentUpon>201803252235422_changestudentTable2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803252247152_changestudentTable3.cs" />
-    <Compile Include="Migrations\201803252247152_changestudentTable3.Designer.cs">
-      <DependentUpon>201803252247152_changestudentTable3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803252254468_changestudentTable4.cs" />
-    <Compile Include="Migrations\201803252254468_changestudentTable4.Designer.cs">
-      <DependentUpon>201803252254468_changestudentTable4.cs</DependentUpon>
+    <Compile Include="Migrations\201803252312344_Initial.cs" />
+    <Compile Include="Migrations\201803252312344_Initial.Designer.cs">
+      <DependentUpon>201803252312344_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
@@ -86,28 +66,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803252139039_PFASchoolDB-v1.resx">
-      <DependentUpon>201803252139039_PFASchoolDB-v1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803252156290_changestudentTable.resx">
-      <DependentUpon>201803252156290_changestudentTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803252204239_changestudentTable1.resx">
-      <DependentUpon>201803252204239_changestudentTable1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803252235422_changestudentTable2.resx">
-      <DependentUpon>201803252235422_changestudentTable2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803252247152_changestudentTable3.resx">
-      <DependentUpon>201803252247152_changestudentTable3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803252254468_changestudentTable4.resx">
-      <DependentUpon>201803252254468_changestudentTable4.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201803252312344_Initial.resx">
+      <DependentUpon>201803252312344_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
