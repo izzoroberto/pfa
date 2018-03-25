@@ -1,3 +1,5 @@
+using DataAccess.Models;
+
 namespace DataAccess.Migrations
 {
     using System;
@@ -9,10 +11,10 @@ namespace DataAccess.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DataAccess.Models.SchoolContext context)
+        protected override void Seed(SchoolContext context)
         {
             //  This method will be called after migrating to the latest version.
 

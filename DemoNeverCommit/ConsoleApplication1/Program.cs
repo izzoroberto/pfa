@@ -18,7 +18,8 @@ namespace ConsoleApplication1
                     try
                     {
                         var student = new Student() { StudentName = "Bill" };
-
+                        var grade = ctx.Grades.FirstOrDefault(x => x.Section == "A");
+                        student.CurrentGrade = grade;
                         ctx.Students.Add(student);
                         ctx.SaveChanges();
                         dbContextTransaction.Commit();

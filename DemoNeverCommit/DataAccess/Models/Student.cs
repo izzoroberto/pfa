@@ -14,7 +14,6 @@ namespace DataAccess.Models
         public DateTime? DateOfBirth { get; set; }
         public decimal Height { get; set; }
         public float Weight { get; set; }
-        public byte[] RowVersion { get; set; }
 
         //A fully defined relationship
         //nullable fk

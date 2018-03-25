@@ -7,7 +7,7 @@ namespace DataAccess.Mapping
     {
         public StudentMap()
         {
-            this.ToTable("StudentInfo")
+            this.ToTable("Student")
                 .HasKey<int>(x => x.StudentID);
 
             this.Property(s => s.StudentName)

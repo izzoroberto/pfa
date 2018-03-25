@@ -30,8 +30,11 @@ namespace DemoNeverCommitXunitTest.Integration
                     {
 
                         //ARRANGE
+                        var grade = ctx.Grades.FirstOrDefault(x => x.Section == "A");
+
                         Student s = new Student();
                         s.StudentName = "BillTest";
+                        s.CurrentGrade = grade;
                         var res = _sendEmailStub.Stub(se => se.Send("", "", "")).IgnoreArguments().Return(true);
 
                         //ACT
@@ -62,8 +65,11 @@ namespace DemoNeverCommitXunitTest.Integration
                     {
 
                         //ARRANGE
+                        var grade = ctx.Grades.FirstOrDefault(x => x.Section == "A");
+
                         Student s = new Student();
                         s.StudentName = "BillTest";
+                        s.CurrentGrade = grade;
                         var res = _sendEmailStub.Stub(se => se.Send("", "", "")).IgnoreArguments().Return(true);
 
                         //ACT

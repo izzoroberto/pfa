@@ -13,8 +13,8 @@ namespace DataAccess.Models
 
         public SchoolContext()
         {
-            Database.SetInitializer<SchoolContext>(new MigrateDatabaseToLatestVersion<SchoolContext,Migrations.Configuration>());
-            //Database.SetInitializer<SchoolContext>(new SchoolDBInitializer());
+            //Database.SetInitializer<SchoolContext>(new MigrateDatabaseToLatestVersion<SchoolContext,Migrations.Configuration>());
+            Database.SetInitializer<SchoolContext>(new SchoolDBInitializer());
             //Database.SetInitializer<SchoolContext>(null);
         }
 
@@ -25,9 +25,6 @@ namespace DataAccess.Models
             //Adds configurations for Student from separate class
             modelBuilder.Configurations.Add(new StudentMap());
             modelBuilder.Configurations.Add(new GradeMap());
-
-            //modelBuilder.Entity<Teacher>()
-            //    .ToTable("TeacherInfo");
 
             //modelBuilder.Entity<Teacher>()
             //    .MapToStoredProcedures();

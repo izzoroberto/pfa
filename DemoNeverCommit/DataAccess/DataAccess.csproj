@@ -54,6 +54,26 @@
     <Compile Include="Migrations\201803252139039_PFASchoolDB-v1.Designer.cs">
       <DependentUpon>201803252139039_PFASchoolDB-v1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803252156290_changestudentTable.cs" />
+    <Compile Include="Migrations\201803252156290_changestudentTable.Designer.cs">
+      <DependentUpon>201803252156290_changestudentTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803252204239_changestudentTable1.cs" />
+    <Compile Include="Migrations\201803252204239_changestudentTable1.Designer.cs">
+      <DependentUpon>201803252204239_changestudentTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803252235422_changestudentTable2.cs" />
+    <Compile Include="Migrations\201803252235422_changestudentTable2.Designer.cs">
+      <DependentUpon>201803252235422_changestudentTable2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803252247152_changestudentTable3.cs" />
+    <Compile Include="Migrations\201803252247152_changestudentTable3.Designer.cs">
+      <DependentUpon>201803252247152_changestudentTable3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803252254468_changestudentTable4.cs" />
+    <Compile Include="Migrations\201803252254468_changestudentTable4.Designer.cs">
+      <DependentUpon>201803252254468_changestudentTable4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Grade.cs" />
@@ -68,6 +88,21 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803252139039_PFASchoolDB-v1.resx">
       <DependentUpon>201803252139039_PFASchoolDB-v1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803252156290_changestudentTable.resx">
+      <DependentUpon>201803252156290_changestudentTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803252204239_changestudentTable1.resx">
+      <DependentUpon>201803252204239_changestudentTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803252235422_changestudentTable2.resx">
+      <DependentUpon>201803252235422_changestudentTable2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803252247152_changestudentTable3.resx">
+      <DependentUpon>201803252247152_changestudentTable3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803252254468_changestudentTable4.resx">
+      <DependentUpon>201803252254468_changestudentTable4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
