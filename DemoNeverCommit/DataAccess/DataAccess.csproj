@@ -49,6 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repository\GradeRepository.cs" />
+    <Compile Include="Repository\IGradeRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\IUoW.cs" />
     <Compile Include="Mapping\GradeMap.cs" />
     <Compile Include="Migrations\201803252312344_Initial.cs" />
     <Compile Include="Migrations\201803252312344_Initial.Designer.cs">
@@ -64,6 +68,8 @@
     <Compile Include="Mapping\StudentMap.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\UoW.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

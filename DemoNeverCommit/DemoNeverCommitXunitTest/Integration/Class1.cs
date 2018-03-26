@@ -2,7 +2,9 @@
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
+using DataAccess;
 using DataAccess.Models;
+using DataAccess.Repository;
 using Infrastructure;
 using Rhino.Mocks;
 using Xunit;
@@ -89,6 +91,43 @@ namespace DemoNeverCommitXunitTest.Integration
             }
         }
 
-      
+        [Fact]
+        public void Test3()
+        {
+            using (var ctx = new SchoolContext())
+            {
+                var uow = new UoW(ctx);
+                IGradeRepository repository = new GradeRepository(ctx);
+                using (var dbContextTransaction = ctx.Database.BeginTransaction())
+                {
+                    using (uow)
+                    {
+                        try
+                        {
+                            //ARRANGE
+                            var attachedGrade = repository.GetById(1);
+                            Student s = new Student();
+                            s.StudentName = "BillTest";
+                            s.CurrentGrade = attachedGrade;
+                            var res = _sendEmailStub.Stub(se => se.Send("", "", "")).IgnoreArguments().Return(true);
+
+                            //ACT
+                            ctx.Students.Add(s);
+                            uow.SaveChanges();
+
+                            //ASSERT
+                            var inserted = ctx.Students.SingleOrDefault(x => x.StudentID == s.StudentID);
+                            Assert.NotNull(inserted);
+
+                        }
+                        finally
+                        {
+                            dbContextTransaction.Rollback();
+                        }
+                    }
+                   
+                }
+            }
+        }
     }
 }

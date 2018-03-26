@@ -14,8 +14,8 @@ namespace DataAccess.Models
         public SchoolContext()
         {
             //Database.SetInitializer<SchoolContext>(new MigrateDatabaseToLatestVersion<SchoolContext,Migrations.Configuration>());
-            Database.SetInitializer<SchoolContext>(new SchoolDBInitializer());
-            //Database.SetInitializer<SchoolContext>(null);
+            //Database.SetInitializer<SchoolContext>(new SchoolDBInitializer());
+            Database.SetInitializer<SchoolContext>(null);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
