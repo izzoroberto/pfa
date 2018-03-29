@@ -21,67 +21,94 @@ namespace DemoNeverCommitXunitTest.Integration
         }
 
 
-        [Fact]
-        public void Test()
-        {
-            using (var ctx = new SchoolContext())
-            {
-                using (var dbContextTransaction = ctx.Database.BeginTransaction())
-                {
-                    try
-                    {
+        //[Fact]
+        //public void Test()
+        //{
+        //    using (var ctx = new ChatContext())
+        //    {
+        //        using (var dbContextTransaction = ctx.Database.BeginTransaction())
+        //        {
+        //            try
+        //            {
 
-                        //ARRANGE
-                        var grade = ctx.Grades.FirstOrDefault(x => x.Section == "A");
+        //                //ARRANGE
 
-                        Student s = new Student();
-                        s.StudentName = "BillTest";
-                        s.CurrentGrade = grade;
-                        var res = _sendEmailStub.Stub(se => se.Send("", "", "")).IgnoreArguments().Return(true);
+        //                Account s = new Account();
+        //                s.UserName = "BillTest";
+        //                var res = _sendEmailStub.Stub(se => se.Send("", "", "")).IgnoreArguments().Return(true);
 
-                        //ACT
-                        ctx.Students.Add(s);
-                        ctx.SaveChanges();
+        //                //ACT
+        //                ctx.Accounts.Add(s);
+        //                ctx.SaveChanges();
                         
-                        //ASSERT
-                        var inserted = ctx.Students.SingleOrDefault(x => x.StudentID == s.StudentID);
-                        Assert.NotNull(inserted);
+        //                //ASSERT
+        //                var inserted = ctx.Accounts.SingleOrDefault(x => x.AccountID == s.AccountID);
+        //                Assert.NotNull(inserted);
 
-                    }
-                    finally
-                    {
-                        dbContextTransaction.Rollback();
-                    }
-                }
-            }
-        }
+        //            }
+        //            finally
+        //            {
+        //                dbContextTransaction.Rollback();
+        //            }
+        //        }
+        //    }
+        //}
+
+        //[Fact]
+        //public void Test2()
+        //{
+        //    using (var ctx = new ChatContext())
+        //    {
+        //        using (var dbContextTransaction = ctx.Database.BeginTransaction())
+        //        {
+        //            try
+        //            {
+
+        //                //ARRANGE
+
+        //                Account s = new Account();
+        //                s.UserName = "BillTest";
+        //                var res = _sendEmailStub.Stub(se => se.Send("", "", "")).IgnoreArguments().Return(true);
+
+        //                //ACT
+        //                ctx.Accounts.Add(s);
+        //                ctx.SaveChanges();
+
+        //                //ASSERT
+        //                var inserted = ctx.Accounts.SingleOrDefault(x => x.AccountID == s.AccountID);
+        //                Assert.NotNull(inserted);
+
+        //            }
+        //            finally
+        //            {
+        //                dbContextTransaction.Rollback();
+        //            }
+        //        }
+        //    }
+        //}
 
         [Fact]
-        public void Test2()
+        public void GivenNewAccount_WhenInsert_ThenReturnNotNull()
         {
-            using (var ctx = new SchoolContext())
+            using (var uow = new UoW(new ChatContext()))
             {
-                using (var dbContextTransaction = ctx.Database.BeginTransaction())
+                using (var dbContextTransaction = uow.BeginTransaction())
                 {
                     try
                     {
-
                         //ARRANGE
-                        var grade = ctx.Grades.FirstOrDefault(x => x.Section == "A");
-
-                        Student s = new Student();
-                        s.StudentName = "BillTest";
-                        s.CurrentGrade = grade;
+                        Account account = new Account();
+                        account.UserName = "roberto";
+                        account.Password = "izzo";
+                        uow.Accounts.Add(account);
                         var res = _sendEmailStub.Stub(se => se.Send("", "", "")).IgnoreArguments().Return(true);
 
                         //ACT
-                        ctx.Students.Add(s);
-                        ctx.SaveChanges();
+                        uow.SaveChanges();
 
                         //ASSERT
-                        var inserted = ctx.Students.SingleOrDefault(x => x.StudentID == s.StudentID);
-                        Assert.NotNull(inserted);
-
+                        var insertedAccount = uow.Accounts.Get(account.AccountID);
+                        Assert.NotNull(insertedAccount);
                     }
                     finally
                     {
@@ -91,43 +118,7 @@ namespace DemoNeverCommitXunitTest.Integration
             }
         }
 
-        [Fact]
-        public void Test3()
-        {
-            using (var ctx = new SchoolContext())
-            {
-                var uow = new UoW(ctx);
-                IGradeRepository repository = new GradeRepository(ctx);
-                using (var dbContextTransaction = ctx.Database.BeginTransaction())
-                {
-                    using (uow)
-                    {
-                        try
-                        {
-                            //ARRANGE
-                            var attachedGrade = repository.GetById(1);
-                            Student s = new Student();
-                            s.StudentName = "BillTest";
-                            s.CurrentGrade = attachedGrade;
-                            var res = _sendEmailStub.Stub(se => se.Send("", "", "")).IgnoreArguments().Return(true);
 
-                            //ACT
-                            ctx.Students.Add(s);
-                            uow.SaveChanges();
 
-                            //ASSERT
-                            var inserted = ctx.Students.SingleOrDefault(x => x.StudentID == s.StudentID);
-                            Assert.NotNull(inserted);
-
-                        }
-                        finally
-                        {
-                            dbContextTransaction.Rollback();
-                        }
-                    }
-                   
-                }
-            }
-        }
     }
 }

@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repository
 {
-    public interface IRepository<TEntity, in TKey> where TEntity : class
+    public interface IRepository<TEntity> where TEntity : class
     {
-        TEntity GetById(TKey id);
-        void Create(TEntity entity);
-        void Update(TEntity entity);
+        IEnumerable<TEntity> GetAll();
+        TEntity Get(int id);
+        void Add(TEntity entity);
+        //void Attach(TEntity entity);
         void Delete(TEntity entity);
     }
 }

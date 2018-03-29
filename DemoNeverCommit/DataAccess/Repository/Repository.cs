@@ -1,50 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess.Models;
 
 namespace DataAccess.Repository
 {
-    public class Repository<TEntity, TKey> where TEntity : class
+   public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        private readonly DbContext _dbContext;
+        protected readonly DbContext Context;
 
-        public Repository(DbContext dbContext)
+        public Repository(DbContext context)
         {
-            if (dbContext == null) throw new ArgumentNullException("dbContext");
-            _dbContext = dbContext;
+            Context = context;
         }
 
-        protected DbContext DbContext
+        public IEnumerable<TEntity> GetAll()
         {
-            get { return _dbContext; }
+            return Context.Set<TEntity>().ToList();
         }
 
-        public void Create(TEntity entity)
+        public TEntity Get(int id)
         {
-            if (entity == null) throw new ArgumentNullException("entity");
-            DbContext.Set<TEntity>().Add(entity);
+            return Context.Set<TEntity>().Find(id);
         }
 
-        public TEntity GetById(TKey id)
+        public void Add(TEntity entity)
         {
-            return _dbContext.Set<TEntity>().Find(id);
+             Context.Set<TEntity>().Add(entity);
         }
 
         public void Delete(TEntity entity)
         {
-            if (entity == null) throw new ArgumentNullException("entity");
-            DbContext.Set<TEntity>().Attach(entity);
-            DbContext.Set<TEntity>().Remove(entity);
-        }
+            Context.Set<TEntity>().Remove(entity);
 
-        public void Update(TEntity entity)
-        {
-            if (entity == null) throw new ArgumentNullException("entity");
-            DbContext.Set<TEntity>().Attach(entity);
-            DbContext.Entry(entity).State = EntityState.Modified;
         }
     }
 }

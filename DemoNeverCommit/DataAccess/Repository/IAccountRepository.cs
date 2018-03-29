@@ -7,11 +7,9 @@ using DataAccess.Models;
 
 namespace DataAccess.Repository
 {
-   
-    public interface IGradeRepository : IRepository<Grade, int>
+    public interface IAccountRepository :IRepository<Account>
     {
-        IEnumerable<Grade> FindSection(string text);
-        IEnumerable<Grade> GetAll();
+        List<Account> GetMessagesFromAccountId(int accountId);
 
     }
 }
