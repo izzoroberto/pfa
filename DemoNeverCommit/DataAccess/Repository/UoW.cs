@@ -11,12 +11,10 @@ namespace DataAccess.Repository
     public class UoW : IUoW
     {
         private readonly ChatContext _context;
-        public IAccountRepository Accounts { get; }
 
         public UoW(ChatContext context)
         {
             _context = context;
-            Accounts = new AccountRepository(_context);
         }
 
         public DbContextTransaction BeginTransaction()

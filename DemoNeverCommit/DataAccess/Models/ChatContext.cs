@@ -8,7 +8,8 @@ namespace DataAccess.Models
     {
         public ChatContext() : base("ChatContext")
         {
-            Database.SetInitializer<ChatContext>(new AccountDBInitializer());
+            //Database.SetInitializer<ChatContext>(new AccountDBInitializer());
+            Database.SetInitializer<ChatContext>(null);
         }
 
         //public ChatContext()

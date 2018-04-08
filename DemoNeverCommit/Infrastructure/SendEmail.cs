@@ -10,7 +10,9 @@ namespace Infrastructure
     {
         public bool Send(string @from, string to, string message)
         {
-            throw new NotImplementedException();
+            if(to == null)
+                throw new ArgumentException("from can not be empty");
+            return true;
         }
     }
 

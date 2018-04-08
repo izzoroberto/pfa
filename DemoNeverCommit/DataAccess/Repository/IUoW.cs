@@ -9,7 +9,6 @@ namespace DataAccess.Repository
 {
     public interface IUoW : IDisposable
     {
-        IAccountRepository Accounts { get; }
         void SaveChanges();
         DbContextTransaction BeginTransaction();
     }
