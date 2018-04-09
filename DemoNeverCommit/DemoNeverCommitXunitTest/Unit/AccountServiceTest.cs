@@ -15,22 +15,26 @@ namespace DemoNeverCommitXunitTest.Unit
     [Trait("Category", "Unit")]
     public class AccountServiceTest
     {
-        private readonly IAccountRepository _accountRepository;
+        private readonly IAccountRepository _stubAccountRepository;
 
         public AccountServiceTest()
         {
-            _accountRepository = MockRepository.GenerateStub<IAccountRepository>();
+            _stubAccountRepository = MockRepository.GenerateStub<IAccountRepository>();
         }
 
         [Fact]
         public void GivenNewAccount_WhenInsert_ThenSendEmail()
         {
-            var mockemail = MockRepository.GenerateMock<ISendEmail>();
-            mockemail.Expect(x => x.Send("", "", "")).IgnoreArguments().Return(true);
+            //ARRANGE
+            var mockEmail = MockRepository.GenerateMock<ISendEmail>();
+            mockEmail.Expect(x => x.Send("", "", "")).IgnoreArguments().Return(true);
 
-            AccountService accountService = new AccountService(mockemail, _accountRepository, new ChatContext());
-            accountService.AddAccount(new Account(), "");
-            mockemail.VerifyAllExpectations();
+            //ACT
+            AccountService sut = new AccountService(mockEmail, _stubAccountRepository, new ChatContext());
+            sut.AddAccount(new Account(), "");
+
+            //ASSERT
+            mockEmail.VerifyAllExpectations();
         }
     }
 }
