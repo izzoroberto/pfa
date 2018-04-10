@@ -35,12 +35,14 @@ namespace DataAccess.Services
                     {
                         _accountRepository.Add(account);
                         uow.SaveChanges();
-                        dbContextTransaction.Commit();
                         _sendEmail.Send("from", email, "message");
+                        dbContextTransaction.Commit();
                     }
                     catch (Exception ex)
                     {
+                        //todo some logs
                         dbContextTransaction.Rollback();
+                        throw;
                     }
                 }
             }

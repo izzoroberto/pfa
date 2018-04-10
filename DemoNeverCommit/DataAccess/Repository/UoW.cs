@@ -19,7 +19,14 @@ namespace DataAccess.Repository
 
         public DbContextTransaction BeginTransaction()
         {
-            return _context.Database.BeginTransaction();
+            if (_context.Database.Connection.State.ToString().ToLower() != "open")
+            {
+                return _context.Database.BeginTransaction();
+            }
+            else
+            {
+                return _context.Database.CurrentTransaction;
+            }
         }
 
         public void SaveChanges()
@@ -29,7 +36,7 @@ namespace DataAccess.Repository
 
         public void Dispose()
         {
-          _context.Dispose();
+            _context.Dispose();
         }
     }
 }

@@ -24,14 +24,14 @@ namespace ConsoleApplication1
 
                 Account account = new Account();
                 account.UserName = "roberto";
-                account.Password = "password";
+                account.Password = "password1";
                 //todo add email in profile entity
                 accountService.AddAccount(account, "email");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error : " + ex);
-                throw;
+                //throw;
             }
 
 

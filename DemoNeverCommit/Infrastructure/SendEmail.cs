@@ -11,7 +11,10 @@ namespace Infrastructure
         public bool Send(string @from, string to, string message)
         {
             if(to == null)
-                throw new ArgumentException("from can not be empty");
+                throw new ArgumentException("Error : recipient must be a valid email");
+
+            if (!to.Contains("@"))
+                throw new ArgumentException("Error : recipient must be a valid email");
             return true;
         }
     }

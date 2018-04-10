@@ -40,7 +40,7 @@ namespace DemoNeverCommitXunitTest.Integration
                         //ARRANGE
                         Account account = new Account();
                         account.UserName = "roberto";
-                        account.Password = "password";
+                        account.Password = "password2";
 
                         _sendEmailStub.Stub(se => se.Send("", "", "")).IgnoreArguments().Return(true);
 
@@ -59,5 +59,7 @@ namespace DemoNeverCommitXunitTest.Integration
                 }
             }
         }
+
+
     }
 }

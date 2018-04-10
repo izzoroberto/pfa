@@ -5,6 +5,7 @@ namespace DataAccess.Models
 {
     public class Account
     {
+        // i know , very anemic class :(
         public Account()
         {
             this.Messages = new HashSet<Message>();
