@@ -14,19 +14,19 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-
+            //i know password  is clear no hash, no salt no pepper ..:)
             try
             {
-                ChatContext chatContext = new ChatContext();
-                IAccountRepository accountRepository = new AccountRepository(chatContext);
+                ChatContext ctx = new ChatContext();
+                IAccountRepository accountRepository = new AccountRepository(ctx);
                 ISendEmail sendEmail = new SendEmail();
-                AccountService accountService = new AccountService(sendEmail, accountRepository, chatContext);
+                AccountService accountService = new AccountService(sendEmail, accountRepository, ctx);
 
                 Account account = new Account();
-                account.UserName = "roberto";
-                account.Password = "password1";
+                account.UserName = "rob";
+                account.Password = "gerrybello";
                 //todo add email in profile entity
-                accountService.AddAccount(account, "email");
+                accountService.AddAccount(account, "roberto.izzo@giuneco.it");
             }
             catch (Exception ex)
             {

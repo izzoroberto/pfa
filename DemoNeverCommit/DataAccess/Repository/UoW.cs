@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using DataAccess.Models;
 
 namespace DataAccess.Repository
@@ -12,9 +14,9 @@ namespace DataAccess.Repository
     {
         private readonly ChatContext _context;
 
-        public UoW(ChatContext context)
+        public UoW(ChatContext ctx)
         {
-            _context = context;
+            _context = ctx;
         }
 
         public DbContextTransaction BeginTransaction()
@@ -34,9 +36,9 @@ namespace DataAccess.Repository
             _context.SaveChanges();
         }
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        //public void Dispose()
+        //{
+        //    _context.Dispose();
+        //}
     }
 }

@@ -26,8 +26,7 @@ namespace DemoNeverCommitXunitTest.Integration
         [Fact]
         public void GivenNewAccount_WhenInsert_ThenReturnNotNull()
         {
-            using (var uow = new UoW(_chatContext))
-            {
+            var uow = new UoW(_chatContext);
                 using (var dbContextTransaction = uow.BeginTransaction())
                 {
                     try
@@ -50,16 +49,14 @@ namespace DemoNeverCommitXunitTest.Integration
                     {
                         dbContextTransaction.Rollback();
                     }
-                }
             }
         }
 
         [Fact]
         public void GivenAccount_WhenUpdate_ThenReturnUpdated()
         {
-            using (var uow = new UoW(_chatContext))
-            {
-                using (var dbContextTransaction = uow.BeginTransaction())
+            var uow = new UoW(_chatContext);
+            using (var dbContextTransaction = uow.BeginTransaction())
                 {
                     try
                     {
@@ -86,7 +83,6 @@ namespace DemoNeverCommitXunitTest.Integration
                         dbContextTransaction.Rollback();
                     }
                 }
-            }
         }
 
     }

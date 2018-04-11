@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repository
 {
-    public interface IUoW : IDisposable
+    public interface IUoW 
     {
         void SaveChanges();
         DbContextTransaction BeginTransaction();

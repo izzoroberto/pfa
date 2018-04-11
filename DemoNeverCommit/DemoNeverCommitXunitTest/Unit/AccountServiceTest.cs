@@ -30,7 +30,7 @@ namespace DemoNeverCommitXunitTest.Unit
             mockmail.Expect(x => x.Send("", "", "")).IgnoreArguments().Return(true);
 
             //ACT
-            AccountService sut = new AccountService(mockmail, _stubAccountRepository, new ChatContext());
+            AccountService sut = new AccountService(mockmail, _stubAccountRepository,new ChatContext());
             sut.AddAccount(new Account(), "");
 
             //ASSERT
@@ -46,7 +46,7 @@ namespace DemoNeverCommitXunitTest.Unit
 
            
             //ACT
-            AccountService sut = new AccountService(mockmail, _stubAccountRepository, new ChatContext());
+            AccountService sut = new AccountService(mockmail, _stubAccountRepository,new ChatContext());
             sut.AddAccount(new Account(), "");
 
             //ASSERT
@@ -72,7 +72,7 @@ namespace DemoNeverCommitXunitTest.Unit
         public void GivenNewAccount_WhenNullEmail_ThenThrow()
         {
             //ARRANGE
-            AccountService sut = new AccountService(new SendEmail(), _stubAccountRepository, new ChatContext());
+            AccountService sut = new AccountService(new SendEmail(), _stubAccountRepository,new ChatContext());
             var newaccount = new Account()
             {
                 UserName = "test",

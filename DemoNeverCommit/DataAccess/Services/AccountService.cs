@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using DataAccess.Models;
 using DataAccess.Repository;
 using Infrastructure;
@@ -13,12 +14,12 @@ namespace DataAccess.Services
     {
         readonly IAccountRepository _accountRepository;
         private readonly ISendEmail _sendEmail;
-        private readonly ChatContext _chatContext;
-        public AccountService(ISendEmail SendEmail, IAccountRepository accountRepository, ChatContext chatContext)
+        private ChatContext _chatContext;
+        public AccountService(ISendEmail SendEmail, IAccountRepository accountRepository, ChatContext ctx)
         {
             _sendEmail = SendEmail;
             _accountRepository = accountRepository;
-            _chatContext = chatContext;
+            _chatContext = ctx;
         }
 
 
@@ -27,23 +28,21 @@ namespace DataAccess.Services
         {
 
             //todo Add  businnes logic for new account
-            using (var uow = new UoW(_chatContext))
+            var uow = new UoW(_chatContext);
+            using (var dbContextTransaction = uow.BeginTransaction())
             {
-                using (var dbContextTransaction = uow.BeginTransaction())
+                try
                 {
-                    try
-                    {
-                        _accountRepository.Add(account);
-                        uow.SaveChanges();
-                        _sendEmail.Send("from", email, "message");
-                        dbContextTransaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        //todo some logs
-                        dbContextTransaction.Rollback();
-                        throw;
-                    }
+                    _accountRepository.Add(account);
+                    uow.SaveChanges();
+                    _sendEmail.Send("from", email, "message");
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    //todo some logs
+                    dbContextTransaction.Rollback();
+                    throw;
                 }
             }
             return account;

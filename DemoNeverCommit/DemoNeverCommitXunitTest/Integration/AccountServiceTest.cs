@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using DataAccess.Models;
 using DataAccess.Repository;
 using DataAccess.Services;
@@ -13,7 +14,7 @@ using Xunit;
 namespace DemoNeverCommitXunitTest.Integration
 {
     [Trait("Category", "Integration")]
-    public  class AccountServiceTest
+    public class AccountServiceTest
     {
         private readonly ISendEmail _sendEmailStub;
         private AccountService _sut;
@@ -25,14 +26,13 @@ namespace DemoNeverCommitXunitTest.Integration
             _chatContext = new ChatContext();
             _sendEmailStub = MockRepository.GenerateStub<ISendEmail>();
             _accountRepository = new AccountRepository(_chatContext);
-            _sut = new AccountService(_sendEmailStub, _accountRepository, _chatContext);
+            _sut = new AccountService(_sendEmailStub, _accountRepository, new ChatContext());
         }
 
         [Fact]
         public void GivenNewAccount_WhenInsert_ThenReturnNotNull()
         {
-            using (var uow = new UoW(_chatContext))
-            {
+                var uow = new UoW(_chatContext);
                 using (var dbContextTransaction = uow.BeginTransaction())
                 {
                     try
@@ -45,7 +45,7 @@ namespace DemoNeverCommitXunitTest.Integration
                         _sendEmailStub.Stub(se => se.Send("", "", "")).IgnoreArguments().Return(true);
 
                         //ACT
-                        var newaccount = _sut.AddAccount(account,null);
+                        var newaccount = _sut.AddAccount(account, null);
 
                         //ASSERT
                         var insertedAccount = _accountRepository.Get(account.AccountID);
@@ -57,9 +57,7 @@ namespace DemoNeverCommitXunitTest.Integration
                         dbContextTransaction.Rollback();
                     }
                 }
-            }
+
         }
-
-
     }
 }
