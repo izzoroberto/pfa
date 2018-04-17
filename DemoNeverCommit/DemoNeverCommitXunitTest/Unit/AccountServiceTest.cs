@@ -42,15 +42,28 @@ namespace DemoNeverCommitXunitTest.Unit
         {
             //ARRANGE
             var mockmail = MockRepository.GenerateMock<ISendEmail>();
-            mockmail.Expect(x => x.Send("", "", "")).IgnoreArguments().Return(true);
 
+            //ACT
+            AccountService sut = new AccountService(mockmail, _stubAccountRepository, new ChatContext());
+            sut.AddAccount(new Account(), "@");
+
+            //ASSERT
+            mockmail.AssertWasCalled(x => x.Send(Arg<string>.Is.Anything, Arg<string>.Matches(y => y.Contains("@")), Arg<string>.Is.Anything));
+        }
+
+
+        [Fact]
+        public void GivenNewAccount_WhenInsertWithEmail_ThenEmailCheckRecipient()
+        {
+            //ARRANGE
+            var mockmail = MockRepository.GenerateMock<ISendEmail>();
            
             //ACT
             AccountService sut = new AccountService(mockmail, _stubAccountRepository,new ChatContext());
-            sut.AddAccount(new Account(), "");
+            sut.AddAccount(new Account(), "@");
 
             //ASSERT
-            mockmail.VerifyAllExpectations();
+            mockmail.AssertWasCalled(x => x.Send(Arg<string>.Is.Anything, Arg<string>.Matches(y =>y.Contains("@")), Arg<string>.Is.Anything));
         }
 
         [Theory]
