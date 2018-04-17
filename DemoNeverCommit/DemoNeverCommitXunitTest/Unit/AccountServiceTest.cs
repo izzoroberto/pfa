@@ -16,21 +16,23 @@ namespace DemoNeverCommitXunitTest.Unit
     public class AccountServiceTest
     {
         private readonly IAccountRepository _stubAccountRepository;
+        private AccountService sut;
+        private ISendEmail mockmail;
 
         public AccountServiceTest()
         {
             _stubAccountRepository = MockRepository.GenerateStub<IAccountRepository>();
+            mockmail = MockRepository.GenerateMock<ISendEmail>();
+            sut = new AccountService(mockmail, _stubAccountRepository, new ChatContext());
         }
 
         [Fact]
         public void GivenNewAccount_WhenInsert_ThenSendEmail()
         {
             //ARRANGE
-            var mockmail = MockRepository.GenerateMock<ISendEmail>();
             mockmail.Expect(x => x.Send("", "", "")).IgnoreArguments().Return(true);
 
             //ACT
-            AccountService sut = new AccountService(mockmail, _stubAccountRepository,new ChatContext());
             sut.AddAccount(new Account(), "");
 
             //ASSERT
@@ -41,10 +43,8 @@ namespace DemoNeverCommitXunitTest.Unit
         public void GivenNewAccount_WhenUpdate_ThenSendEmail()
         {
             //ARRANGE
-            var mockmail = MockRepository.GenerateMock<ISendEmail>();
 
             //ACT
-            AccountService sut = new AccountService(mockmail, _stubAccountRepository, new ChatContext());
             sut.AddAccount(new Account(), "@");
 
             //ASSERT
@@ -56,10 +56,8 @@ namespace DemoNeverCommitXunitTest.Unit
         public void GivenNewAccount_WhenInsertWithEmail_ThenEmailCheckRecipient()
         {
             //ARRANGE
-            var mockmail = MockRepository.GenerateMock<ISendEmail>();
            
             //ACT
-            AccountService sut = new AccountService(mockmail, _stubAccountRepository,new ChatContext());
             sut.AddAccount(new Account(), "@");
 
             //ASSERT
@@ -85,7 +83,7 @@ namespace DemoNeverCommitXunitTest.Unit
         public void GivenNewAccount_WhenNullEmail_ThenThrow()
         {
             //ARRANGE
-            AccountService sut = new AccountService(new SendEmail(), _stubAccountRepository,new ChatContext());
+            AccountService sut = new AccountService(new SendEmail(), _stubAccountRepository, new ChatContext());
             var newaccount = new Account()
             {
                 UserName = "test",
