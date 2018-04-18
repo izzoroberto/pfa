@@ -17,6 +17,7 @@ namespace DemoNeverCommitXunitTest.Integration
     public class AccountServiceTest
     {
         private readonly ISendEmail _sendEmailStub;
+        private readonly ILogData _logDataStub;
         private AccountService _sut;
         private readonly ChatContext _chatContext;
         private readonly IAccountRepository _accountRepository;
@@ -25,8 +26,9 @@ namespace DemoNeverCommitXunitTest.Integration
         {
             _chatContext = new ChatContext();
             _sendEmailStub = MockRepository.GenerateStub<ISendEmail>();
+            _logDataStub = MockRepository.GenerateStub<ILogData>();
             _accountRepository = new AccountRepository(_chatContext);
-            _sut = new AccountService(_sendEmailStub, _accountRepository, new ChatContext());
+            _sut = new AccountService(_sendEmailStub, _accountRepository, _logDataStub, new ChatContext());
         }
 
         [Fact]

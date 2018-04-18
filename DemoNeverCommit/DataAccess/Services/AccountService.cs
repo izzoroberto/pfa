@@ -14,12 +14,14 @@ namespace DataAccess.Services
     {
         readonly IAccountRepository _accountRepository;
         private readonly ISendEmail _sendEmail;
+        private readonly ILogData _logData;
         private ChatContext _chatContext;
-        public AccountService(ISendEmail SendEmail, IAccountRepository accountRepository, ChatContext ctx)
+        public AccountService(ISendEmail SendEmail, IAccountRepository accountRepository,ILogData LogData,  ChatContext ctx)
         {
             _sendEmail = SendEmail;
             _accountRepository = accountRepository;
             _chatContext = ctx;
+            _logData = LogData;
         }
 
 
@@ -36,6 +38,7 @@ namespace DataAccess.Services
                     _accountRepository.Add(account);
                     uow.SaveChanges();
                     _sendEmail.Send("from", email, "message");
+                    _logData.LogThis(DateTime.Now+" insert "+ account.AccountID);
                     dbContextTransaction.Commit();
                 }
                 catch (Exception ex)

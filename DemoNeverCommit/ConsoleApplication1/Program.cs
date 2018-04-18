@@ -20,7 +20,8 @@ namespace ConsoleApplication1
                 ChatContext ctx = new ChatContext();
                 IAccountRepository accountRepository = new AccountRepository(ctx);
                 ISendEmail sendEmail = new SendEmail();
-                AccountService accountService = new AccountService(sendEmail, accountRepository, ctx);
+                ILogData logData = new LogData();
+                AccountService accountService = new AccountService(sendEmail, accountRepository, logData, ctx);
 
                 Account account = new Account();
                 account.UserName = "rob";

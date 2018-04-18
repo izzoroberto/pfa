@@ -73,10 +73,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Integration\AccountMother.cs" />
     <Compile Include="Integration\AccountServiceTest.cs" />
     <Compile Include="Integration\DataAccessTest.cs" />
-    <Compile Include="Integration\MyFixture.cs" />
-    <Compile Include="Integration\MyTests.cs" />
+    <Compile Include="Integration\MyCollectionDefinition.cs" />
+    <Compile Include="Integration\MyFixture1.cs" />
+    <Compile Include="Integration\MyFixture2.cs" />
+    <Compile Include="Integration\MyTestUsingShareClass.cs" />
+    <Compile Include="Integration\MyTestUsingICollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\AccountServiceTest.cs" />
   </ItemGroup>

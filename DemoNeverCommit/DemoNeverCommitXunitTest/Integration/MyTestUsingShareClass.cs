@@ -9,11 +9,12 @@ namespace DemoNeverCommitXunitTest.Integration
 {
     //Class where you want to use shared class instance
     //XUnit executes tests in parallel by default.Having shared state/values between tests can lead to strange behaviour
-    public class MyTests : IClassFixture<MyFixture>
+    //[assembly: CollectionBehavior(DisableTestParallelization = true)]
+    public class MyTestUsingShareClass : IClassFixture<MyFixture1>
     {
-        private readonly MyFixture _fixture;
+        private readonly MyFixture1 _fixture;
 
-        public MyTests(MyFixture fixture)
+        public MyTestUsingShareClass(MyFixture1 fixture)
         {
             _fixture = fixture;
         }

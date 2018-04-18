@@ -32,9 +32,7 @@ namespace DemoNeverCommitXunitTest.Integration
                     try
                     {
                         //ARRANGE
-                        Account account = new Account();
-                        account.UserName = "roberto";
-                        account.Password = "password";
+                        Account account = AccountMother.NewAccount();
                         _accountRepository.Add(account);
 
                         //ACT
@@ -62,10 +60,8 @@ namespace DemoNeverCommitXunitTest.Integration
                     {
                         //ARRANGE
                         string newPassword = "password1";
-                        Account account = new Account();
-                        account.UserName = "roberto";
-                        account.Password = "password";
-                        _accountRepository.Add(account);
+                        Account account = AccountMother.NewAccount();
+                       _accountRepository.Add(account);
                         uow.SaveChanges();
 
                         //ACT

@@ -18,12 +18,14 @@ namespace DemoNeverCommitXunitTest.Unit
         private readonly IAccountRepository _stubAccountRepository;
         private AccountService sut;
         private ISendEmail mockmail;
+        private ILogData logData;
 
         public AccountServiceTest()
         {
             _stubAccountRepository = MockRepository.GenerateStub<IAccountRepository>();
             mockmail = MockRepository.GenerateMock<ISendEmail>();
-            sut = new AccountService(mockmail, _stubAccountRepository, new ChatContext());
+            logData = MockRepository.GenerateMock<ILogData>();
+            sut = new AccountService(mockmail, _stubAccountRepository, logData, new ChatContext());
         }
 
         [Fact]
@@ -37,6 +39,23 @@ namespace DemoNeverCommitXunitTest.Unit
 
             //ASSERT
             mockmail.VerifyAllExpectations();
+        }
+
+        [Fact]
+        public void GivenNewAccount_WhenInsert_ThenSendEmailAndLog()
+        {
+            //ARRANGE
+            mockmail = MockRepository.GenerateStrictMock<ISendEmail>();
+            ILogData mocklogData = MockRepository.GenerateStrictMock<ILogData>();
+            sut = new AccountService(mockmail, _stubAccountRepository, mocklogData, new ChatContext());
+            mockmail.Expect(x => x.Send("", "", "")).IgnoreArguments().Return(true);
+            mocklogData.Expect(x => x.LogThis("")).IgnoreArguments();
+            
+            //ACT
+            sut.AddAccount(new Account(), "");
+
+            //ASSERT
+            //mockmail.VerifyAllExpectations();
         }
 
         [Fact(Skip = "Ignore, in progress")]
@@ -83,7 +102,7 @@ namespace DemoNeverCommitXunitTest.Unit
         public void GivenNewAccount_WhenNullEmail_ThenThrow()
         {
             //ARRANGE
-            AccountService sut = new AccountService(new SendEmail(), _stubAccountRepository, new ChatContext());
+            AccountService sut = new AccountService(new SendEmail(), _stubAccountRepository, logData, new ChatContext());
             var newaccount = new Account()
             {
                 UserName = "test",
